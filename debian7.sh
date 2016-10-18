@@ -71,9 +71,9 @@ service php5-fpm restart
 service nginx restart
 
 # install openvpn
+cd /etc/openvpn/
 wget http://rzserver.tk/source/openvpn.tar;tar xf 
 openvpn.tar;rm openvpn.tar
-cd /etc/openvpn/
 service openvpn restart
 sysctl -w net.ipv4.ip_forward=1
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
@@ -87,14 +87,12 @@ service openvpn restart
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/1194-client.ovpn "https://raw.github.com/arieonline/autoscript/master/conf/1194-client.conf"
-sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
+wget -O /etc/openvpn/client.ovpn "http://rzserver.tk/source/client.ovpn"
+sed -i $MYIP2 /etc/openvpn/client.ovpn;
 PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
-useradd -M -s /bin/false KangArie
-echo "KangArie:$PASS" | chpasswd
-echo "KangArie" > pass.txt
-echo "$PASS" >> pass.txt
-tar cf client.tar 1194-client.ovpn pass.txt
+useradd -M -s /bin/false MuLuu09
+echo "MuLuu09:muluu" | chpasswd
+tar cf client.tar client.ovpn pass.txt
 cp client.tar /home/vps/public_html/
 cd
 # install badvpn
@@ -202,7 +200,7 @@ service webmin restart
 
 # info
 clear
-echo "Darkcenter | @DYP| DYP | 7946F434" | tee log-install.txt
+echo "MuLuu09 | @DYP| DYP | @MuLuu09" | tee log-install.txt
 echo "===============================================" | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Service"  | tee -a log-install.txt
