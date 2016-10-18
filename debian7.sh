@@ -71,9 +71,10 @@ service php5-fpm restart
 service nginx restart
 
 # install openvpn
+wget -O /etc/openvpn/openvpn.tar "https://raw.github.com/MuluuJelekk/openvpn/master/openvpn.tar"
 cd /etc/openvpn/
-wget http://rzserver.tk/source/openvpn.tar;tar xf 
-openvpn.tar;rm openvpn.tar
+tar xf openvpn.tar
+wget -O /etc/openvpn/59999.conf "https://raw.github.com/MuluuJelekk/openvpn/master/conf/59999.conf"
 service openvpn restart
 sysctl -w net.ipv4.ip_forward=1
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
@@ -84,17 +85,17 @@ MYIP2="s/xxxxxxxxx/$MYIP/g";
 sed -i $MYIP2 /etc/iptables.up.rules;
 iptables-restore < /etc/iptables.up.rules
 service openvpn restart
-
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "http://rzserver.tk/source/client.ovpn"
-sed -i $MYIP2 /etc/openvpn/client.ovpn;
+wget -O /etc/openvpn/59999-client.ovpn "https://raw.github.com/MuluuJelekk/openvpn/master/59999-client.conf"
+sed -i $MYIP2 /etc/openvpn/59999-client.ovpn;
 PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
-useradd -M -s /bin/false MuLuu09
-echo "MuLuu09:muluu" | chpasswd
-tar cf client.tar client.ovpn pass.txt
+useradd -M -s /bin/false muluu
+echo "muluu:muluu" | chpasswd
+tar cf client.tar 59999-client.ovpn pass.txt
 cp client.tar /home/vps/public_html/
 cd
+
 # install badvpn
 wget -O /usr/bin/badvpn-udpgw "https://raw.github.com/arieonline/autoscript/master/conf/badvpn-udpgw"
 sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /etc/rc.local
@@ -205,7 +206,7 @@ echo "===============================================" | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Service"  | tee -a log-install.txt
 echo "-------"  | tee -a log-install.txt
-echo "OpenVPN  : TCP 1194 (client config : http://$MYIP/client.tar)"  | tee -a log-install.txt
+echo "OpenVPN  : TCP 59999 (client config : http://$MYIP/client.tar)"  | tee -a log-install.txt
 echo "OpenSSH  : 22, 143"  | tee -a log-install.txt
 echo "Dropbear : 109, 110, 443"  | tee -a log-install.txt
 echo "Squid3   : 8080 (limit to IP SSH)"  | tee -a log-install.txt
@@ -232,8 +233,8 @@ echo "./user-limit.sh 2"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Account Default (utk SSH dan VPN)"  | tee -a log-install.txt
 echo "---------------"  | tee -a log-install.txt
-echo "User     : Dimas"  | tee -a log-install.txt
-echo "Password : qweasd"  | tee -a log-install.txt
+echo "User     : muluu"  | tee -a log-install.txt
+echo "Password : muluu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Fitur lain"  | tee -a log-install.txt
 echo "----------"  | tee -a log-install.txt
