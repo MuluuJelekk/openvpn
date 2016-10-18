@@ -17,7 +17,7 @@ iptables-restore < /etc/iptables.up.rules
 service openvpn restart
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/59999-client.ovpn "https://raw.github.com/MuluuJelekk/openvpb/master/59999-client.conf"
+wget -O /etc/openvpn/59999-client.ovpn "https://raw.github.com/MuluuJelekk/openvpn/master/59999-client.conf"
 sed -i $MYIP2 /etc/openvpn/59999-client.ovpn;
 PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
 useradd -M -s /bin/false muluu
