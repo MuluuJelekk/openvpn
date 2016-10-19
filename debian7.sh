@@ -74,7 +74,7 @@ service nginx restart
 wget -O /etc/openvpn/openvpn.tar "https://raw.github.com/MuluuJelekk/openvpn/master/openvpn.tar"
 cd /etc/openvpn/
 tar xf openvpn.tar
-wget -O /etc/openvpn/1194.conf "https://raw.github.com/MuluuJelekk/openvpn/master/59999.conf"
+wget -O /etc/openvpn/59999.conf "https://raw.github.com/MuluuJelekk/openvpn/master/59999.conf"
 service openvpn restart
 sysctl -w net.ipv4.ip_forward=1
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
