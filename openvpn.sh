@@ -20,8 +20,10 @@ cd /etc/openvpn/
 wget -O /etc/openvpn/59999-client.ovpn "https://raw.github.com/MuluuJelekk/openvpn/master/59999-client.conf"
 sed -i $MYIP2 /etc/openvpn/59999-client.ovpn;
 PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
-useradd -M -s /bin/false muluu
-echo "muluu:muluu" | chpasswd
+useradd -M -s /bin/false KangArie
+echo "KangArie:$PASS" | chpasswd
+echo "KangArie" > pass.txt
+echo "$PASS" >> pass.txt
 tar cf client.tar 59999-client.ovpn pass.txt
 cp client.tar /home/vps/public_html/
 cd
